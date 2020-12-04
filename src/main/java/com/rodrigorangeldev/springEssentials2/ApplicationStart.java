@@ -1,4 +1,4 @@
-package com.rodrigorangeldev.springEssentials2.Start;
+package com.rodrigorangeldev.springEssentials2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

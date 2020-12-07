@@ -1,6 +1,7 @@
 package com.rodrigorangeldev.springEssentials2.Controller;
 
 import com.rodrigorangeldev.springEssentials2.Domain.Anime;
+import com.rodrigorangeldev.springEssentials2.Request.SaveAnimeRequestBody;
 import com.rodrigorangeldev.springEssentials2.Util.DateUtil;
 import com.rodrigorangeldev.springEssentials2.service.AnimeService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,9 +35,15 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.findById(id));
     }
 
+    @GetMapping(path = "/findbyname")
+    public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+        log.info(dateUtil.FormatDateToDatabase(LocalDateTime.now()));
+        return ResponseEntity.ok(animeService.findByName(name));
+    }
+
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime){
-        return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
+    public ResponseEntity<Anime> save(@RequestBody @Valid SaveAnimeRequestBody anime){
+        return new ResponseEntity<>(animeService.save(anime.getName()), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")

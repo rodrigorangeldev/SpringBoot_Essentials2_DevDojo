@@ -4,6 +4,8 @@ import com.rodrigorangeldev.springEssentials2.Domain.Anime;
 import com.rodrigorangeldev.springEssentials2.Exception.BadRequestException;
 import com.rodrigorangeldev.springEssentials2.Repository.AnimeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,9 +24,9 @@ public class AnimeService {
     private final AnimeRepository animeRepository;
 
 
-    public List<Anime> listAll(){
+    public Page<Anime> listAll(Pageable pageable){
 
-        return animeRepository.findAll();
+        return animeRepository.findAll(pageable);
     }
 
     public List<Anime> findByName(String name){
@@ -58,8 +60,6 @@ public class AnimeService {
         savedAnime.setId(anime.getId());
 
         animeRepository.save(savedAnime);
-
-
 
     }
 }
